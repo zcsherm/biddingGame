@@ -1,4 +1,6 @@
-import ITEMS from items
+import ITEM_CARDS from items
+import CONTRACT_CARDS from contracts
+import random
 class Card:
     
     def __init__(self,name):
@@ -24,10 +26,11 @@ class Item(Card):
         return self._owner
         
 class Contract(Card):
-    def __init__(self, name, budget, points):
+    def __init__(self, name, budget, target, points):
         super().__init__(name)
         self._budget = budget
         self._modified_budget = budget
+        self._target = target
         self._points = points
 
     def get_budget(self):
@@ -47,8 +50,9 @@ class Deck:
         self._type = type
         self._cards = []
         self._card_indices = []
+        self._number_of_cards = 0
         self._card_pointer = 0
-        self.generate_decks(type)
+        self.generate_deck(self._type)
 
     def draw_card(self):
         if self._card_pointer >= len(self._cards):
@@ -57,3 +61,46 @@ class Deck:
         self._card_pointer += 1
         return card
 
+    def shuffle(self):
+        # Use knuth shuffle method, shuffle in place by moving random picks to end of list, decrementing range by 1
+        num_of_cards_unshuffled = self._number_of_cards-1
+        while num_of_cards_unshuffled != 0:
+            index = random.randint(0,num_of_cards_unshuffled)
+            tmp = self._card_indices[num_of_cards_unshuffled]
+            self._card_indices[num_of_cards_unshuffled] =self._card_indices[index]
+            self._card_indices[index] = tmp
+            num_of_cards_unshuffled -= 1
+        
+
+    def generate_deck(self,type):
+        if type == 'items':
+            cards = ITEM_CARDS
+            card = Item
+        elif type == 'contracts':
+            cards = CONTRACT_CARDS
+            card = Contract
+        else:
+            # Change to an error
+            return False
+        counter = 0
+        for name, attributes in cards.items():
+            new_card = card(name,*attributes)
+            self._cards.append(new_card)
+            counter += 1
+        self._number_of_cards = counter
+        self._card_indices = [i for i in range(counter)]
+        self.shuffle()
+        
+    def get_type(self):
+        return self._type
+
+    def get_card_pointer(self):
+        return self._card_pointer
+
+    def get_card_indices(self):
+        return self._card_indices
+
+    def get_cards(self):
+        return self._cards
+
+    

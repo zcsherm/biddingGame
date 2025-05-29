@@ -70,7 +70,7 @@ class Deck:
             self._card_indices[num_of_cards_unshuffled] =self._card_indices[index]
             self._card_indices[index] = tmp
             num_of_cards_unshuffled -= 1
-        
+        self._card_pointer=0
 
     def generate_deck(self,type):
         if type == 'items':
@@ -102,5 +102,19 @@ class Deck:
 
     def get_cards(self):
         return self._cards
-
-    
+        
+    def get_card_names(self):
+        for i in range(self._number_of_cards):
+            print(self._cards[self._card_indices[i]].get_name())
+        
+new_deck = Deck('items')
+print(new_deck.get_card_indices())
+new_deck.get_card_names()
+new_deck.shuffle()
+print(new_deck.get_card_indices())
+print(new_deck.get_card_names())
+card1=new_deck.draw_card()
+card2=new_deck.draw_card()
+print(card1.get_name(), card2.get_name())
+for i in range(8):
+    print(new_deck.draw_card().get_name())

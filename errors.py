@@ -28,5 +28,24 @@ class invalidOwnerError(Exception):
             message += f" {object.get_name()} was assigned an owner of  {owner}. Owners must be a player in the game (1 or 2), 'game', or None."
         else:
             message += f"Passed value was {owner}, but owner must be a player in the game (1 or 2), 'game', or None."
+        super().__init__(message)
+        
+class invalidCard(Exception):
+    """
+    Error raised when a card without valid attributes is passed
+    """
+    def __init__(self, card, target: String):
+        message = f"A card was passed to {target} that had invalid attributes. Card has attributes: \n"
+        variables = vars(card)
+        for key, value in variables:
+            message += f"{key}: {value}\n"
+        super().__init__(message)
 
-class 
+class invalidCardTypeToDeck(Exception):
+    """
+    Handles when an invalid card type is passed to a deck
+    """
+    def __init__(self, card, deck_type):
+        message = f"A card of type {card.get_type()} was passed to a deck of mismatching type. The deck only holds {deck_type} cards."
+        super.__init__(message)
+        

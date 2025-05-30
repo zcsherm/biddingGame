@@ -1,16 +1,25 @@
 import ITEM_CARDS from items
 import CONTRACT_CARDS from contracts
 import random
+from errors import *
+
 class Card:
     """
     Represents a generic card
     """
     def __init__(self,name):
+        if !isinstance(name, str):
+            raise InvalidNameError(name, self)
         self._name = name
     
     def get_name(self):
         return self._name
 
+    def set_owner(self, owner):
+        if owner not in VALID_OWNERS:
+            raise InvalidOwnerError(owner, self)
+        self._owner = owner
+        
 class Item(Card):
     """
     Represents an item card, with name, a cost, and a resale value
@@ -20,6 +29,10 @@ class Item(Card):
         Setup the card with basic attributes, set the cards owner as None, indicating it should be in the deck
         """
         super().__init__(name)
+        if !isinstance(cost, int):
+            raise InvalidValueError(cost, "cost", self)
+        if !isinstance(resale_value, int):
+            raise InvalidValueError(resale_value, "resale_value", self)
         self._cost = cost
         self._resale_value = resale_value
         self._owner = None
@@ -42,12 +55,19 @@ class Contract(Card):
         setup basic attributes for the contract, owner as none implies card is not in use.
         """
         super().__init__(name)
+        if !isinstance(budget, int):
+            raise InvalidValueError(budget, "cost",self)
+        if !isinstance(target,int):
+            raise InvalidValueError(target, "target", self)
+        if !isinstance(points,int):
+            raise InvalidValueError(points, "points", self)        
         self._budget = budget
         self._modified_budget = budget
         self._target = target
         self._points = points
         self._owner = None
 
+    
     def get_budget(self):
         return self._budget
 
@@ -58,6 +78,8 @@ class Contract(Card):
         """
         Modifies the budget based on the users bid for the contract
         """
+        if !isinstance(modifier, int):
+            raise InvalidValueError(modifier, "modified_budget", self)
         self._modified_budget = self._budget + modifier
 
     def get_points(self):
@@ -123,6 +145,10 @@ class Deck:
         counter = 0
         for name, attributes in cards.items():
             new_card = card(name,*attributes)
+            try:
+                validate_card(new_card)
+            except:
+                raise InvalidCard(new_card)
             self._cards.append(new_card)
             counter += 1
         self._number_of_cards = counter
@@ -148,7 +174,17 @@ class Deck:
         """
         for i in range(self._number_of_cards):
             print(self._cards[self._card_indices[i]].get_name())
-        
+
+def validate_card(card):
+    if !isinstance(card.get_name(), str):
+        raise InvalidNameError(name, self)
+    if card.get_owner() is not in VALID_OWNERS:
+        raise InvalidOwnerError(card.get_owner())
+    if card.__class__.__name__ == "Item":
+    elif card.__class__.__name__ == "Contract":
+        pass
+    else:
+        return False
 new_deck = Deck('items')
 print(new_deck.get_card_indices())
 new_deck.get_card_names()

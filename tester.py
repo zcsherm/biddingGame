@@ -1,3 +1,4 @@
+
 from cards import *
 from players import *
 from collections import *
@@ -39,7 +40,7 @@ class testCards(unittest.Testcase):
             attributes = (card.get_cost(),card.get_value())
             self.assertEqual(TEST_ITEMS[card.get_name()], attributes)
         for card in self._test_contracts:
-            attributes = (card.get_cost(), card.get_value())
+            attributes = (card.get_budget(), card.get_target(), card.get_points())
             self.assertEqual(TEST_CONTRACTS[card.get_name()], attributes)
 
         # Test for invalid inputs

@@ -16,3 +16,17 @@ class invalidNameError(Exception):
     """
     def __init__(self, name, object):
         message = f"An invalid name was passed to an object on creation. {object.__class__.__name__} was passed "
+        super().__init__(message)
+
+class invalidOwnerError(Exception):
+    """
+    Error raised when a game object is passed an invalid owner id
+    """
+    def __init__(self, owner, object=None):
+        message = f"An object was assigned an incorrect owner."
+        if object is not None:
+            message += f" {object.get_name()} was assigned an owner of  {owner}. Owners must be a player in the game (1 or 2), 'game', or None."
+        else:
+            message += f"Passed value was {owner}, but owner must be a player in the game (1 or 2), 'game', or None."
+
+class 

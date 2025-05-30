@@ -1,3 +1,13 @@
+VALID_OWNERS = [
+    "1",
+    "2",
+    "game",
+    "Game",
+    1,
+    2,
+    None
+]
+
 class invalidValueError(Exception):
     """
     Error raised when a game object is passed an invalid valid as an attribute

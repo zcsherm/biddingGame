@@ -58,6 +58,9 @@ class Deck:
         if self._card_pointer >= len(self._cards):
             self.shuffle()
         card = self._cards[self._card_indices[self._card_pointer]]
+        while card._owner is not None:
+            self._card_pointer += 1
+            card = self._cards[self._card_indices[self._card_pointer]]
         self._card_pointer += 1
         return card
 

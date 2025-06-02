@@ -20,7 +20,7 @@ class testCards(unittest.Testcase):
         for card_name, attributes in TEST_ITEMS:
             self._test_items.append(Item(card_name,*attributes))
         for card_name, attributes in TEST_CONTRACTS:
-            self._test_contracts.append(Contract(card_name,*attributes)
+            self._test_contracts.append(Contract(card_name,*attributes))
     def testCardGeneration(self):
         test_item = Item("Item One",1,2)
         test_contract = Item("Contract One",1,2,3)

@@ -112,3 +112,21 @@ class Contracts(Market):
             if self._slots[key] is not None:
                 self.remove_item(self._slots[key])
         
+class Chits:
+
+    def __init__(self, player):
+        self._player = player
+        self._chits = {}
+        self.create_chits()
+
+    def create_chits(self):
+        # Create all chits for the player
+        pass
+
+    def get_chit(self, chit_id):
+        return self._chits[chit_id]
+
+    def reset_chits(self):
+        # On starting a new round, return all chits to a player
+        for chit in self._chits:
+            self._chits[chit].reset()

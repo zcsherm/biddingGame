@@ -12,7 +12,7 @@ TEST_CONTRACTS = {"Contract One":(1,2,3),
                   "Contract Three":(7,8,9)
                  }
 
-class testCards(unittest.Testcase):
+class testCards(unittest.TestCase):
     def __init__():
         super().__init__()
         self._test_items = []
@@ -65,6 +65,22 @@ class testDeck(unittest.Testcase):
     def testCards(self):
         pass
 
+class testPlayer(unittest.TestCase):
 
+    def testAddPoints(self):
+        pass
+
+    def testRemovePoints(self):
+        pass
+
+    def testPickItem(self):
+        pass
+
+    def testAddContract(self):
+        pass
+
+    def testAssignItems(self):
+        pass
+  
 if __name__ == '__main__':
     unittest.main()

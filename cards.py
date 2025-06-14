@@ -1,5 +1,5 @@
-import ITEM_CARDS from items
-import CONTRACT_CARDS from contracts
+from items import ITEM_CARDS
+from contracts import CONTRACT_CARDS
 import random
 from errors import *
 
@@ -8,7 +8,7 @@ class Card:
     Represents a generic card
     """
     def __init__(self,name):
-        if !isinstance(name, str):
+        if not isinstance(name,str):
             raise InvalidNameError(name, self)
         self._name = name
     
@@ -29,9 +29,9 @@ class Item(Card):
         Setup the card with basic attributes, set the cards owner as None, indicating it should be in the deck
         """
         super().__init__(name)
-        if !isinstance(cost, int):
+        if not isinstance(cost, int):
             raise InvalidValueError(cost, "cost", self)
-        if !isinstance(resale_value, int):
+        if not isinstance(resale_value, int):
             raise InvalidValueError(resale_value, "resale_value", self)
         self._cost = cost
         self._resale_value = resale_value
@@ -55,11 +55,11 @@ class Contract(Card):
         setup basic attributes for the contract, owner as none implies card is not in use.
         """
         super().__init__(name)
-        if !isinstance(budget, int):
+        if not isinstance(budget, int):
             raise InvalidValueError(budget, "cost",self)
-        if !isinstance(target,int):
+        if not isinstance(target,int):
             raise InvalidValueError(target, "target", self)
-        if !isinstance(points,int):
+        if not isinstance(points,int):
             raise InvalidValueError(points, "points", self)        
         self._budget = budget
         self._modified_budget = budget
@@ -78,7 +78,7 @@ class Contract(Card):
         """
         Modifies the budget based on the users bid for the contract
         """
-        if !isinstance(modifier, int):
+        if not isinstance(modifier, int):
             raise InvalidValueError(modifier, "modified_budget", self)
         self._modified_budget = self._budget + modifier
 
@@ -176,11 +176,12 @@ class Deck:
             print(self._cards[self._card_indices[i]].get_name())
 
 def validate_card(card):
-    if !isinstance(card.get_name(), str):
+    if not isinstance(card.get_name(), str):
         raise InvalidNameError(name, self)
-    if card.get_owner() is not in VALID_OWNERS:
+    if card.get_owner() not in VALID_OWNERS:
         raise InvalidOwnerError(card.get_owner())
     if card.__class__.__name__ == "Item":
+        pass
     elif card.__class__.__name__ == "Contract":
         pass
     else:

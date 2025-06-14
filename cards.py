@@ -71,6 +71,9 @@ class Contract(Card):
     def get_budget(self):
         return self._budget
 
+    def get_target(self):
+        return self._target
+
     def get_modified_budget(self):
         return self._modified_budget
 
@@ -84,6 +87,9 @@ class Contract(Card):
 
     def get_points(self):
         return self._points
+
+    def get_owner(self):
+        return self._owner
 
 class Deck:
     """
@@ -177,7 +183,7 @@ class Deck:
 
 def validate_card(card):
     if not isinstance(card.get_name(), str):
-        raise InvalidNameError(name, self)
+        raise InvalidNameError(card.get_name(), card)
     if card.get_owner() not in VALID_OWNERS:
         raise InvalidOwnerError(card.get_owner())
     if card.__class__.__name__ == "Item":
@@ -186,14 +192,4 @@ def validate_card(card):
         pass
     else:
         return False
-new_deck = Deck('items')
-print(new_deck.get_card_indices())
-new_deck.get_card_names()
-new_deck.shuffle()
-print(new_deck.get_card_indices())
-print(new_deck.get_card_names())
-card1=new_deck.draw_card()
-card2=new_deck.draw_card()
-print(card1.get_name(), card2.get_name())
-for i in range(8):
-    print(new_deck.draw_card().get_name())
+

@@ -1,3 +1,4 @@
+from collectionsitems import *
 class Player:
     """
     Represents a player in the game. The player has a cart (hand), 3 contract slots, 3 bundles of items (one for each contract), and a collection of betting chits

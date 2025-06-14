@@ -1,7 +1,7 @@
 
 from cards import *
 from players import *
-from collections import *
+from collectionsitems import *
 import unittest
 TEST_ITEMS = {"Item One":(1,2),
               "Item Two":(3,4),
@@ -13,17 +13,20 @@ TEST_CONTRACTS = {"Contract One":(1,2,3),
                  }
 
 class testCards(unittest.TestCase):
-    def __init__():
-        super().__init__()
+    @classmethod
+    def setUpClass(self):
         self._test_items = []
         self._test_contracts = []
-        for card_name, attributes in TEST_ITEMS:
+        for card_name in TEST_ITEMS:
+            attributes = TEST_ITEMS[card_name]
             self._test_items.append(Item(card_name,*attributes))
-        for card_name, attributes in TEST_CONTRACTS:
+        for card_name in TEST_CONTRACTS:
+            attributes = TEST_CONTRACTS[card_name]
             self._test_contracts.append(Contract(card_name,*attributes))
+
     def testCardGeneration(self):
         test_item = Item("Item One",1,2)
-        test_contract = Item("Contract One",1,2,3)
+        test_contract = Contract("Contract One",1,2,3)
         # Test generic creation and default values
         self.assertEqual(test_item.get_name(),"Item One")
         self.assertEqual(test_item.get_cost(),1)
@@ -33,7 +36,7 @@ class testCards(unittest.TestCase):
         self.assertEqual(test_contract.get_target(),2)
         self.assertEqual(test_contract.get_points(),3)
         self.assertIsNone(test_contract.get_owner())
-        self._assertIsNone(test_item.get_owner())
+        self.assertIsNone(test_item.get_owner())
 
         # Test the generated cards against the test cases
         for card in self._test_items:
@@ -51,7 +54,7 @@ class testCards(unittest.TestCase):
     def testModifyCards(self):
         pass
 
-class testDeck(unittest.Testcase):
+class testDeck(unittest.TestCase):
 
     def testDeckGeneration(self):
         pass
@@ -81,6 +84,6 @@ class testPlayer(unittest.TestCase):
 
     def testAssignItems(self):
         pass
-  
+
 if __name__ == '__main__':
     unittest.main()

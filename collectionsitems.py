@@ -1,3 +1,5 @@
+COUNT = 5
+
 class Collection:
     def __init__(self, owner):
         self._items = []
@@ -35,7 +37,7 @@ class Collection:
     def get_item(self, index):
         return self._items[index]
     
-class Cart(collection):
+class Cart(Collection):
     def __init__(self, owner):
         super().__init__(owner)
 
@@ -47,13 +49,13 @@ class Cart(collection):
         item.set_owner(None)
         # Move to market
         
-class Bundle(collection):
+class Bundle(Collection):
     
     def __init__(self, owner):
         super().__init__(owner)
 
     def add_item(self,item):
-        super().add_item(item):
+        super().add_item(item)
         self._owner.get_cart().remove_item(item)
 
     def remove_item(self, item):
@@ -93,12 +95,12 @@ class Market(Collection):
         super().add_item(item)
         self._used_slots += 1
         for key in self._items:
-            if self._items[key] == None:
+            if self._items[key] is None:
                 self._items[key] = item
                 return
 
     def refill_slots(self, deck):
-        while self._used_slots < count:
+        while self._used_slots < COUNT:
             self.add_item(deck.draw_card())
             self._used_slots += 1
 
